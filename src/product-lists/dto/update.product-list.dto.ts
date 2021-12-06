@@ -1,11 +1,11 @@
 import {ArrayMaxSize, IsArray, IsOptional, IsString, Length} from "class-validator";
-import mongoose from "mongoose";
+import {ObjectId} from "mongoose";
 
 export class UpdateProductListDto {
     @IsOptional()
     @IsString()
     @Length(0, 100)
-    user: mongoose.Schema.Types.ObjectId
+    user: ObjectId
 
     @IsOptional()
     @IsString()
@@ -17,5 +17,5 @@ export class UpdateProductListDto {
     @ArrayMaxSize(15)
     @IsString({each: true})
     @Length(0, 100, { each: true })
-    products: mongoose.Schema.Types.ObjectId[]
+    products: ObjectId[]
 }
