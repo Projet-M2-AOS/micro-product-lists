@@ -10,6 +10,7 @@ export class CreateProductListDto {
     @ApiProperty({
         description: `The id of the user who owns the list`,
         type: String,
+        format: 'mongo-id',
         minLength: 0,
         maxLength: 100
     })

@@ -8,6 +8,7 @@ export type ProductListDocument = ProductList & Document;
 export class ProductList {
     @ApiProperty({
         type: String,
+        format: 'mongo-id',
         minLength: 0,
         maxLength: 100
     })
@@ -16,6 +17,7 @@ export class ProductList {
     @Prop({type: mongoose.Schema.Types.ObjectId})
     @ApiProperty({
         type: String,
+        format: 'mongo-id',
         minLength: 0,
         maxLength: 100
     })

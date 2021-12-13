@@ -10,6 +10,7 @@ export class UpdateProductListDto {
         description: `The id of the user who owns the list`,
         required: false,
         type: String,
+        format: 'mongo-id',
         minLength: 0,
         maxLength: 100
     })
