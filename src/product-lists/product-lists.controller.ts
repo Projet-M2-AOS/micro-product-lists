@@ -1,21 +1,34 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, Put} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    HttpException,
+    HttpStatus,
+    Param,
+    Post,
+    Put,
+    Query
+} from '@nestjs/common';
 import {ObjectId} from "mongoose";
 import {ProductListsService} from "./product-lists.service";
 import {ProductList} from "./product-list.schema";
 import {CreateProductListDto} from "./dto/create.product-list.dto";
 import {UpdateProductListDto} from "./dto/update.product-list.dto";
+import {ParseObjectIdPipe} from "../pipe/parse-mongoose-id.pipe";
 
 @Controller('product-lists')
 export class ProductListsController {
     constructor(private productListsService: ProductListsService) {}
 
     @Get()
-    getAllProductList(): Promise<ProductList[]> {
-        return this.productListsService.findAll()
+    getProductLists(@Query('userId', ParseObjectIdPipe) userId: ObjectId): Promise<ProductList[]> {
+        return this.productListsService.find({userId})
     }
 
     @Get(':idProductList')
-    async getProductListById(@Param('idProductList') id: ObjectId): Promise<ProductList> {
+    async getProductListById(@Param('idProductList', ParseObjectIdPipe) id: ObjectId): Promise<ProductList> {
         const productList = await this.productListsService.findById(id)
 
         if (!productList) {
@@ -36,7 +49,7 @@ export class ProductListsController {
     }
 
     @Put(':idProductList')
-    async updateProductList(@Param('idProductList') id: ObjectId, @Body() updateProductListDto: UpdateProductListDto): Promise<ProductList> {
+    async updateProductList(@Param('idProductList', ParseObjectIdPipe) id: ObjectId, @Body() updateProductListDto: UpdateProductListDto): Promise<ProductList> {
         let productList: ProductList;
 
         try {
@@ -60,7 +73,7 @@ export class ProductListsController {
 
     @Delete(':idProductList')
     @HttpCode(HttpStatus.NO_CONTENT)
-    async deleteProductList(@Param('idProductList') id: ObjectId) {
+    async deleteProductList(@Param('idProductList', ParseObjectIdPipe) id: ObjectId) {
         let productList: ProductList;
         try {
             productList = await this.productListsService.findById(id)
