@@ -32,7 +32,9 @@ export class ProductList {
 
     @Prop({type: [mongoose.Schema.Types.ObjectId]})
     @ApiProperty({
-        type: [String],
+        type: String,
+        format: 'mongo-id',
+        isArray: true,
         maxItems: 15
     })
     products: mongoose.Schema.Types.ObjectId[]

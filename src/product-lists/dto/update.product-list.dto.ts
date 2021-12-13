@@ -36,7 +36,9 @@ export class UpdateProductListDto {
     @ApiProperty({
         description: 'An array containing product ids',
         required: false,
-        type: [String],
+        type: String,
+        format: 'mongo-id',
+        isArray: true,
         maxItems: 15
     })
     products: ObjectId[]

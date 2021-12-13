@@ -35,7 +35,9 @@ export class CreateProductListDto {
     @Length(0, 100, { each: true })
     @ApiProperty({
         description: 'An array containing product ids',
-        type: [String],
+        type: String,
+        format: 'mongo-id',
+        isArray: true,
         maxItems: 15,
     })
     products: ObjectId[]
