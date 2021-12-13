@@ -41,7 +41,7 @@ export class ProductListsController {
             type: 'string'
         }
     })
-    @ApiResponse({status: HttpStatus.OK, type: [ProductList]})
+    @ApiResponse({status: HttpStatus.OK, type: ProductList})
     @ApiResponse({status: HttpStatus.BAD_REQUEST, description: 'Invalid id supplied'})
     @ApiResponse({status: HttpStatus.NOT_FOUND, description: 'Product list not found'})
     async getProductListById(@Param('idProductList', ParseObjectIdPipe) id: ObjectId): Promise<ProductList> {
@@ -76,13 +76,13 @@ export class ProductListsController {
     })
     @ApiParam({
         name: 'idProductList',
-        description: 'The id of the list you want to get',
+        description: 'The id of the list you want to update',
         required: true,
         schema: {
             type: 'string'
         }
     })
-    @ApiResponse({status: HttpStatus.OK, type: [ProductList], description: 'The product lists updated'})
+    @ApiResponse({status: HttpStatus.OK, type: ProductList, description: 'The product list updated'})
     @ApiResponse({status: HttpStatus.BAD_REQUEST, description: 'Invalid schema supplied'})
     @ApiResponse({status: HttpStatus.NOT_FOUND, description: 'Product list not found'})
     async updateProductList(@Param('idProductList', ParseObjectIdPipe) id: ObjectId, @Body() updateProductListDto: UpdateProductListDto): Promise<ProductList> {
@@ -114,7 +114,7 @@ export class ProductListsController {
     })
     @ApiParam({
         name: 'idProductList',
-        description: 'The id of the list you want to get',
+        description: 'The id of the list you want to delete',
         required: true,
         schema: {
             type: 'string'

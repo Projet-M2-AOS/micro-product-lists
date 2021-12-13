@@ -6,19 +6,33 @@ import {ApiProperty} from "@nestjs/swagger";
 export type ProductListDocument = ProductList & Document;
 
 export class ProductList {
-    @ApiProperty({type: String})
+    @ApiProperty({
+        type: String,
+        minLength: 0,
+        maxLength: 100
+    })
     _id: mongoose.Schema.Types.ObjectId
 
     @Prop({type: mongoose.Schema.Types.ObjectId})
-    @ApiProperty({type: String})
+    @ApiProperty({
+        type: String,
+        minLength: 0,
+        maxLength: 100
+    })
     user: mongoose.Schema.Types.ObjectId
 
     @Prop()
-    @ApiProperty()
+    @ApiProperty({
+        minLength: 0,
+        maxLength: 100
+    })
     name: string
 
     @Prop({type: [mongoose.Schema.Types.ObjectId]})
-    @ApiProperty({type: [String]})
+    @ApiProperty({
+        type: [String],
+        maxItems: 15
+    })
     products: mongoose.Schema.Types.ObjectId[]
 }
 

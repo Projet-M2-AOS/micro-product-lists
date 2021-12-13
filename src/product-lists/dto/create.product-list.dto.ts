@@ -9,7 +9,9 @@ export class CreateProductListDto {
     @Length(0, 100)
     @ApiProperty({
         description: `The id of the user who owns the list`,
-        type: String
+        type: String,
+        minLength: 0,
+        maxLength: 100
     })
     user: ObjectId
 
@@ -18,7 +20,9 @@ export class CreateProductListDto {
     @IsString()
     @Length(0, 100)
     @ApiProperty({
-        description: 'The name of the list'
+        description: 'The name of the list',
+        minLength: 0,
+        maxLength: 100
     })
     name: string
 
@@ -30,7 +34,8 @@ export class CreateProductListDto {
     @Length(0, 100, { each: true })
     @ApiProperty({
         description: 'An array containing product ids',
-        type: [String]
+        type: [String],
+        maxItems: 15,
     })
     products: ObjectId[]
 }

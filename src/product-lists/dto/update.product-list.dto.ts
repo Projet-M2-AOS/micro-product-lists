@@ -9,7 +9,9 @@ export class UpdateProductListDto {
     @ApiProperty({
         description: `The id of the user who owns the list`,
         required: false,
-        type: String
+        type: String,
+        minLength: 0,
+        maxLength: 100
     })
     user: ObjectId
 
@@ -18,7 +20,9 @@ export class UpdateProductListDto {
     @Length(0, 100)
     @ApiProperty({
         description: 'The name of the list',
-        required: false
+        required: false,
+        minLength: 0,
+        maxLength: 100
     })
     name: string
 
@@ -31,7 +35,8 @@ export class UpdateProductListDto {
     @ApiProperty({
         description: 'An array containing product ids',
         required: false,
-        type: [String]
+        type: [String],
+        maxItems: 15
     })
     products: ObjectId[]
 }
