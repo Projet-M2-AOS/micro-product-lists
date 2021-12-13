@@ -15,6 +15,10 @@ export class ProductListsService {
         return productList.save();
     }
 
+    async createMany(createProductListDtos: CreateProductListDto[]): Promise<ProductList[]> {
+        return this.productListModel.insertMany(createProductListDtos);
+    }
+
     delete(id: ObjectId) {
         return this.productListModel.findByIdAndDelete(id).exec()
     }
