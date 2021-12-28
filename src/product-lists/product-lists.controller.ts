@@ -1,7 +1,7 @@
 import {Body, Query, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, ParseArrayPipe, Post, Put} from '@nestjs/common';
-import {ObjectId} from "mongoose";
+import {FilterQuery, ObjectId} from "mongoose";
 import {ProductListsService} from "./product-lists.service";
-import {ProductList} from "./product-list.schema";
+import {ProductList, ProductListDocument} from "./product-list.schema";
 import {CreateProductListDto} from "./dto/create.product-list.dto";
 import {UpdateProductListDto} from "./dto/update.product-list.dto";
 import {ParseObjectIdPipe} from "../pipe/parse-mongoose-id.pipe";
@@ -26,8 +26,14 @@ export class ProductListsController {
     })
     @ApiResponse({status: HttpStatus.OK, type: [ProductList]})
     @ApiResponse({status: HttpStatus.BAD_REQUEST, description: 'Invalid id supplied'})
-    getProductLists(@Query('userId', ParseObjectIdPipe) userId: ObjectId): Promise<ProductList[]> {
-        return this.productListsService.find({userId})
+    getProductLists(@Query('userId', ParseObjectIdPipe) userId: ObjectId | undefined): Promise<ProductList[]> {
+        const filter: FilterQuery<ProductListDocument> = {}
+
+        if (userId) {
+            filter.user = userId;
+        }
+
+        return this.productListsService.find(filter)
     }
 
     @Get(':idProductList')
