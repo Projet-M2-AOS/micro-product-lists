@@ -1,10 +1,11 @@
 import * as mongoose from "mongoose";
-import {Prop, SchemaFactory} from "@nestjs/mongoose";
+import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import {Document} from "mongoose";
 import {ApiProperty} from "@nestjs/swagger";
 
 export type ProductListDocument = ProductList & Document;
 
+@Schema()
 export class ProductList {
     @ApiProperty({
         type: String,
